@@ -1,0 +1,457 @@
+<html dir="rtl">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+juris
+</title>
+<script  src="./js/react.development.js"></script>
+<script  src="./js/react-dom.development.js"></script>
+<script src="./js/babel.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-auth.js"></script>
+
+<link rel="stylesheet" href="./css/style.css"/>
+<link rel="stylesheet" href="./css/bootstrap.css"/>
+<link rel="stylesheet" href="./css/bootstrap-rtl.css"/>
+
+
+</head>
+<body>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+          apiKey: "AIzaSyA3YltChWDcrQjZhgrv5O_df5VeA1CcVRo",
+          authDomain: "emailaut-8374c.firebaseapp.com",
+          databaseURL: "https://emailaut-8374c.firebaseio.com",
+          projectId: "emailaut-8374c",
+          storageBucket: "emailaut-8374c.appspot.com",
+          messagingSenderId: "441619242876",
+          appId: "1:441619242876:web:b77ee0cdc13ee5ee8ecef9"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+      </script>
+    <div id="like_button_container"></div>
+    <script type="text/babel">
+   
+var isTest = false;
+var isDebug = false;
+    const domContainer = document.querySelector('#like_button_container');
+        
+        const e = React.createElement;
+        class Login extends React.Component
+        {
+            constructor(props)
+            {
+                super(props)
+                this.state={email:"",pasword:"",log:false}
+                this.chemail=this.chemail.bind(this)
+                this.chepasword=this.chepasword.bind(this)
+                this.log=this.log.bind(this)
+                
+            }
+            componentDidMount()
+            {
+                
+                var st=(b)=>this.setState({log:b})
+                firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    
+                    st(true)
+                    console.log("login")
+    // User is signed in.
+                     } else {
+                         st(false)
+                         firebase.auth().signInWithEmailAndPassword("test@test.com", "testtest")
+    // No user is signed in.
+    console.log("no user")
+                     }
+                });
+            }
+            log()
+            {
+
+                firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.pasword).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  alert(errorMessage)
+  // ...
+});
+            }
+            
+            chemail(event)
+            {
+                this.setState({email:event.target.value})
+                
+
+            }
+            chepasword(event)
+            {
+                this.setState({pasword:event.target.value})
+               
+
+            }
+
+
+            render()
+            {
+                if(this.state.log==true)
+                return <Shoset/>
+                return <div>
+                    <div class="header left ">
+                            <img src="./img/law.png" alt="رمز" />
+                            <label class="title"> تطبيق الاجتهاد القضائي
+                                </label>
+                             
+                    </div>
+                    <div class="content login">
+                    <label> الايميل </label>
+                    <input  class="in"value={this.state.email} onChange={this.chemail}/>
+                    <label> كلمة السر</label>
+                    <input class="in"value={this.state.pasword} onChange={this.chepasword}/>
+                    <button  class="btn btn-primary"onClick={this.log}>دخول</button>
+                    </div>
+                    </div>
+            }
+
+
+
+        }
+        class About extends React.Component
+        {
+            constructor(props)
+            {
+                super(props)
+            }
+            render()
+            {
+                console.log("from about"+ this.props.ret)
+                return <div>
+                    <div class="header left shadow rounded ">
+                            <img src="./img/law.png" alt="رمز" />
+                            <label class="title"> تطبيق الاجتهاد القضائي
+                                </label>
+                             
+                    </div>
+                    <div class="about">
+                    <p>
+                    تطبيق الاجتهاد القضائي هو تطبيق يعتمد على خوارزميات الدكاء الالكتروني للبحث عن الاجتهاد القضائي عن طريق كلمات البحث
+</p>
+<p>
+حقوق الرنامج محفوظة
+
+</p>
+<p>
+لمعرفة اخر التحديتات يرجى زيارة موقع
+</p>
+<a href="https://ramedde2001.github.io/f/">الموقع</a>
+
+
+                    </div>
+                    <div class="foter shadow p-3 mb-5 bg-white rounded">
+
+
+
+
+<button class="btn btn-dark" onClick={this.props.ret}>الصفحة الرئيسية</button>
+
+
+</div>
+                    </div>
+            }
+            
+            
+        }
+        class Foter extends React.Component{
+            constructor(probs)
+            {
+                super(probs)
+                this.rete=this.rete.bind(this)
+            }
+            rete()
+            {
+         console.log("from foter"+this.props.ret)
+            }
+            render()
+            {
+                
+                return <div class="foter shadow p-3 mb-5 bg-white rounded">
+
+
+                    <button class="btn btn-dark" onClick={this.props.ab}>حول البرنامج</button>
+                    
+                    
+                    <button class="btn btn-dark"onClick={this.rete}>الصفحة الرئيسية</button>
+                    
+                    
+                    </div>
+                
+                
+            }
+
+
+
+        }
+        class Elem extends React.Component{
+            constructor(probs)
+            {
+                super(probs)
+            }
+        render()
+        {
+           return <div   class="content">{this.props.so.text}</div>
+
+
+        }
+
+
+
+        }
+        
+        class Show extends React.Component{
+            constructor(probs)
+            {
+                super(probs);
+                this.state={id:0}
+                this.next=this.next.bind(this)
+                this.prev=this.prev.bind(this)
+
+            }
+            next()
+            {
+                if(this.state.id<9)
+                this.setState({id:this.state.id+1})
+
+            }
+            prev()
+            {
+                if(this.state.id>0)
+                this.setState({id:this.state.id-1})
+            }
+          
+
+            render()
+            {
+                return (
+                <div>
+                <div class="header" >
+                    <button onClick={this.props.retr} >رجوع</button>
+                    
+                    
+
+                    <button onClick={this.next}>التالي</button>
+                    <label>رقم : {this.state.id}</label>
+                    <button onClick={this.prev}>السابق</button>
+                </div>
+
+                   <Elem  index={this.state.id} so={this.props.res.results[this.state.id]}/>
+                        
+
+
+                         
+
+                        
+                   
+                    
+                </div>)
+            }
+        }
+          
+        class Shoset extends React.Component{
+
+            constructor(props)
+            {
+                super(props)
+                this.state={name:"",show:"main",href:"https://api.eu-gb.discovery.watson.cloud.ibm.com/instances/2513799b-9d19-40ab-b66d-053d045afb4f/v1/environments/0d630b27-86da-4b56-b899-2945feb51293/collections/d704429d-0d6d-47f1-b090-c1c33786fa74/query?version=2018-12-03&deduplicate=false&highlight=true&passages=true&passages.count=5&highlight=true&natural_language_query="}
+            this.show=this.show.bind(this)
+            this.about=this.about.bind(this)
+            this.ret=this.ret.bind(this)
+            document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+            }
+            onShowVideoAds(){
+		
+
+        unityads2.ShowVideoAd(videoAdPlacementId, function callback(error, result){
+            
+            if(error){
+                console.log(error)
+            }
+            else{
+                console.log(result);
+            }
+
+        });
+		
+    }
+            onDeviceReady() {
+ 
+
+unityads2.UnityAdsInit(gameId, isTest, isDebug, function callback(error, result){
+    
+    if(error){
+        console.log(error)
+    }
+    else{
+        console.log(result);
+    }
+
+});
+
+}
+            show(id)
+            {
+                const links=
+                ["https://api.eu-gb.discovery.watson.cloud.ibm.com/instances/2513799b-9d19-40ab-b66d-053d045afb4f/v1/environments/0d630b27-86da-4b56-b899-2945feb51293/collections/d704429d-0d6d-47f1-b090-c1c33786fa74/query?version=2018-12-03&deduplicate=false&highlight=true&passages=true&passages.count=5&highlight=true&natural_language_query=",
+                "https://lowapi.herokuapp.com/pen/",
+                "https://lowapi.herokuapp.com/civl/",
+                "https://lowapi.herokuapp.com/coml/",
+                "https://lowapi.herokuapp.com/fam/",
+                "https://lowapi.herokuapp.com/soc/",
+                "https://lowapi.herokuapp.com/fon/",
+
+
+
+            ];
+            const names=["البحث الشامل عن الاجتهاد القضائي الجزائري"
+            ,"الغرفة الجنائية لدى المحكمة العليا"
+            ,"الغرفة المدنية لدى المحكمة العليا"
+    
+            ,"الغرفة التجارية والبحرية"
+            ,"غرفة الاحوال الشخصية والمواريث"
+            ,"الغرفة الاجتماعية"
+            ,"الغرفة العقارية"
+
+
+
+        ,]
+                this.setState({href:links[id],show:"search",name:names[id]})
+                console.log(links[id])
+                
+
+            }
+            about()
+            {
+                this.setState({show:"about"})
+            }
+            ret()
+        {
+        
+            
+          this.setState({show:"main"}) 
+            
+        }
+            render()
+            {
+                if(this.state.show=="main")
+                return(
+                    <div>
+                        <div class="header left ">
+                            <img src="./img/law.png" alt="رمز" />
+                            <label class="title"> تطبيق الاجتهاد القضائي
+                                </label>
+                             
+                             </div>
+                    <div class="content">
+                <div class="first"> 
+                    <button class="btn btn-primary shadow  fi" onClick={()=>this.show(0)}> البحث الشامل عن الاجتهاد القضائي الجزائري</button>
+                    <button class="btn btn-primary shadow fi"onClick={()=>this.show(1)}>الغرفة الجنائية لدى المحكمة العليا</button>
+                    <button class="btn btn-primary shadow fi"onClick={()=>this.show(2)}>الغرفة المدنية لدى المحكمة العليا</button>
+                    <button class="btn btn-primary shadow fi"onClick={()=>this.show(3)}>الغرفة التجارية والبحرية</button>
+                    <button class="btn btn-primary shadow fi"onClick={()=>this.show(4)}>غرفة الاحوال الشخصية والمواريث</button>
+                    <button class="btn btn-primary shadow fi"onClick={()=>this.show(5)}>الغرفة الاجتماعية </button>
+                    <button class="btn btn-primary shadow fi"onClick={()=>this.show(6)}>الغرفة العقارية </button>
+</div>
+                    </div>
+                    <Foter ab={this.about} />
+                    </div>)
+                if(this.state.show=="search")
+                return <LikeButton ret={this.ret} link={this.state.href}name={this.state.name}/>
+                if(this.state.show=="about")
+                return <About ab={this.about} ret={this.ret}/>
+            }
+        }
+        class LikeButton extends React.Component {
+        constructor(props) {
+        super(props);
+         this.state = { href: this.props.link,words:"",show:true,res:{}};
+         
+        this.changel=this.changel.bind(this)  
+        this.click=this.click.bind(this)    
+        this.handelre=this.handelre.bind(this) 
+        this.retr=this.retr.bind(this)  
+        
+        }
+       
+        handelre(e)
+        {
+    
+            var json=JSON.parse(e.target.responseText);
+            var jss;
+            if(this.props.link=="https://api.eu-gb.discovery.watson.cloud.ibm.com/instances/2513799b-9d19-40ab-b66d-053d045afb4f/v1/environments/0d630b27-86da-4b56-b899-2945feb51293/collections/d704429d-0d6d-47f1-b090-c1c33786fa74/query?version=2018-12-03&deduplicate=false&highlight=true&passages=true&passages.count=5&highlight=true&natural_language_query=")
+             jss=json
+             else
+              jss=JSON.parse(json)
+             console.log(jss)
+            this.setState({show:false,res:jss})
+           
+
+        }
+        click()
+        {
+		if(this.state.words!="")
+		{
+            this.setState({ld:true})
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET",this.props.link+this.state.words)
+            if(this.props.link=="https://api.eu-gb.discovery.watson.cloud.ibm.com/instances/2513799b-9d19-40ab-b66d-053d045afb4f/v1/environments/0d630b27-86da-4b56-b899-2945feb51293/collections/d704429d-0d6d-47f1-b090-c1c33786fa74/query?version=2018-12-03&deduplicate=false&highlight=true&passages=true&passages.count=5&highlight=true&natural_language_query=")
+            xhr.setRequestHeader("Authorization", "Basic " + btoa("apikey:eE2buJm65mc_FtHzbhlV0M-sgrnp8cGuLrsrLCxZoPvo"));
+            xhr.send()
+            xhr.onload =(e)=>this.handelre(e)
+		}else
+		alert("لم تقم بادخال كلمات البحث")
+        
+        }
+        changel(event)
+        {
+            this.setState({ld:false,words:event.target.value,href:this.state.href})
+           
+        }
+        retr()
+        {
+            this.setState({show:true,ld:false})  
+        }
+        render() {
+            if(this.state.show==true )
+        return <div>
+            <div class="header">
+                <button onClick={this.props.ret} class="btn btn-secondary fix">رجوع</button>
+                </div>
+                <div class="content first">
+        
+        <div class="title">{this.props.name}</div>
+       <img class="imgf"src="img/suprem.jpg"/> 
+        <input id="srt" value={this.state.words} onChange={this.changel}/ >
+        <button onClick={this.click} class="btn btn-primary fi">إبحث</button>
+        {!this.state.ld?null:<div class="loader"></div>}
+        
+        
+        
+        
+        </div>
+        </div>
+        if(this.state.show==false)
+        return <Show retr={this.retr} res={this.state.res}/>
+        
+        }
+        }
+        ReactDOM.render(e(Login), domContainer);
+        
+    
+       
+
+    </script>
+</body>
+
+
+</html>
